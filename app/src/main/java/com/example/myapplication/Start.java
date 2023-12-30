@@ -22,6 +22,8 @@ import java.util.Random;
 
 public class Start extends AppCompatActivity {
 
+
+    int guess=0;
     // 先宣告 View 的變數
     Button submitButton;
     Button restartButton;
@@ -60,7 +62,7 @@ public class Start extends AppCompatActivity {
                 result.append(selectedDigit);
             }
 
-            answer = result.toString();
+            answer = ("0000").toString();
         }
         String checkAnswer(String guess){
             int a = 0, b = 0;
@@ -121,6 +123,7 @@ public class Start extends AppCompatActivity {
             public void onClick(View v){
                 // 一定要輸入四個數字才有反應
                 if(inputNumber.getText().length() == 4) {
+                    guess++;
                     // 將使用者輸入的數字跟幾 A 幾 B 放入文字框框中
                     historyInput.setText((inputNumber.getText() + "\n") + historyInput.getText());
                     historyResult.setText((game.checkAnswer(inputNumber.getText().toString()) + "\n") + historyResult.getText());
@@ -132,6 +135,8 @@ public class Start extends AppCompatActivity {
                         Toast.makeText(that, "You win", Toast.LENGTH_LONG).show();
                                 // 當按鈕被點擊時，視為訓練完成，呼叫 onTrainingCompleted()
                                 Intent intent = new Intent(Start.this, EndActivity.class);
+                                String str_guess = String.valueOf(guess);
+                                intent.putExtra("guessNumber", str_guess);
                                 startActivity(intent);
 
                                 // 結束當前 Activity
